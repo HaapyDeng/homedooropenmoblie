@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="手机远程开门"
+        android:textColor="#333333"
+        android:textSize="32dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:text="APP智能远程开启单元门禁，再也不用担心没带钥匙进不了门"
+        android:textColor="#444444"
+        android:textSize="18dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:background="@mipmap/img_guide_01" />
+</LinearLayout>

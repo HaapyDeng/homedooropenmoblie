@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="智能人脸识别"
+        android:textColor="#333333"
+        android:textSize="32dp" />
+
+    <ImageView
+        android:id="@+id/iv2"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/tv1" />
+
+    <TextView
+        android:id="@+id/tv3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv2"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:text="进行人脸录入系统门禁终端即可进行人脸识别开启门禁"
+        android:textColor="#444444"
+        android:textSize="18dp" />
+
+    <ImageView
+        android:id="@+id/iv4"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@+id/tv3" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv4"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:background="@mipmap/img_guide_03" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnEnter"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="@drawable/enter_button_shape"
+            android:text="点击进入"
+            android:textColor="#ffffff"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

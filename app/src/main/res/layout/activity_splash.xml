@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    tools:context="com.max_plus.homedooropenplate.Activity.SplashActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:src="@mipmap/logo" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:gravity="center"
+        android:text="迈普乐· 智慧宅邸"
+        android:textColor="#333333"
+        android:textSize="20dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:gravity="center"
+        android:text="V1.0"
+        android:textColor="#333333"
+        android:textSize="13dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/splash_img_bg" />
+</LinearLayout>

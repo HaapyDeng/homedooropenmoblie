@@ -1,4 +1,4 @@
-package com.max_plus.homedooropenplate.activity;
+package com.max_plus.homedooropenplate.Activity;
 
 import android.app.Application;
 import android.util.Log;

@@ -1,6 +1,7 @@
-package com.max_plus.homedooropenplate.activity;
+package com.max_plus.homedooropenplate.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.max_plus.homedooropenplate.R;
