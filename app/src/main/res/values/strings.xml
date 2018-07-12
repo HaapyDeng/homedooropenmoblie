@@ -2,4 +2,10 @@
     <string name="app_name">智慧宅邸</string>
     <string name="agora_ID">ac289be3a59c4f7f92cfd616b04d201e</string>
     <string name="Jpush_ID">e6479ec90b9b00b706d1b63e</string>
+    <string name="error_phone">请输入合法的手机号</string>
+    <string name="error_password">密码仅支持输入字母、数字或限定符号：@ - _</string>
+    <string name="not_null">用户名或者密码不能为空</string>
+    <string name="no_network">网络不可用请检查网络重试</string>
+    <string name="phone_null">手机号不能为空</string>
+    <string name="please_replenish">请把信息补充完整再点击注册</string>
 </resources>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.MainActivity">
+    tools:context=".Activity.LoginActivity">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -48,6 +48,7 @@
                 android:drawablePadding="15dp"
                 android:gravity="center_vertical"
                 android:hint="输入您的手机号"
+                android:inputType="phone"
                 android:lines="1"
                 android:maxLength="20" />
 
@@ -70,15 +71,24 @@
                 android:drawablePadding="15dp"
                 android:gravity="center_vertical"
                 android:hint="输入密码"
+                android:inputType="textPassword"
+                android:digits="0123456789abcdefghigklmnopqrstuvwxyz@-_"
                 android:lines="1"
                 android:maxLength="20" />
 
         </LinearLayout>
     </RelativeLayout>
 
-    <ImageView
+    <TextView
+        android:id="@+id/tv_error_string"
         android:layout_width="match_parent"
-        android:layout_height="20dp" />
+        android:layout_height="30dp"
+        android:layout_marginLeft="16dp"
+        android:gravity="center_vertical"
+        android:textColor="#f36e6a"
+        android:layout_marginRight="16dp"
+        android:textSize="14dp"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/btn_login"
@@ -116,7 +126,7 @@
             android:alpha="0" />
 
         <TextView
-            android:id="@+id/regist"
+            android:id="@+id/tv_regist"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="16dp"

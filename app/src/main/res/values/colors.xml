@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="blue">#0087F0</color>
     <color name="grey">#E0E0E0</color>
+    <color name="head">#1A96F7</color>
+    <color name="get_code">#0087F1</color>
 </resources>
