@@ -2,15 +2,28 @@ package com.max_plus.homedooropenplate.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.max_plus.homedooropenplate.R;
 import com.max_plus.homedooropenplate.Tools.NetworkUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.math.BigInteger;
+
+import cz.msebera.android.httpclient.Header;
 
 public class LoginActivity extends Activity implements View.OnClickListener, View.OnFocusChangeListener {
     private EditText et_user, et_psd;
@@ -60,6 +73,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Vie
                     Toast.makeText(this, R.string.no_network, Toast.LENGTH_LONG).show();
                     return;
                 }
+                doLogin(userName, password);
                 break;
             case R.id.tv_forget_psd:
                 Intent intent = new Intent(this, ForgetPasswordActivity.class);
@@ -70,6 +84,64 @@ public class LoginActivity extends Activity implements View.OnClickListener, Vie
                 startActivity(intent2);
                 break;
         }
+    }
+
+    private void doLogin(String userName, String password) {
+        String url = getResources().getString(R.string.local_url) + "/login";
+        RequestParams params = new RequestParams();
+        params.put("mobile", new BigInteger(userName));
+        params.put("password", password);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post(url, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                Log.d("response==>>>", response.toString());
+                try {
+                    int code = response.getInt("code");
+                    if (code == 0) {
+                        JSONObject data = response.getJSONObject("data");
+                        int is_go = data.getInt("is_go");
+                        int audit_status = data.getInt("audit_status");
+                        String token = data.getString("access_token");
+                        SharedPreferences sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("token", token);
+                        editor.commit();
+                        if (is_go == 0) {
+                            Intent intent = new Intent(LoginActivity.this, FillInfoActivity.class);
+                            startActivity(intent);
+                        }
+                    } else {
+                        Toast.makeText(LoginActivity.this, response.getString("message"), Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(LoginActivity.this, R.string.no_network, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Toast.makeText(LoginActivity.this, R.string.no_network, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(LoginActivity.this, R.string.no_network, Toast.LENGTH_LONG).show();
+                return;
+            }
+        });
     }
 
     @Override

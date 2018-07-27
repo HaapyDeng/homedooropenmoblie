@@ -2,7 +2,9 @@ package com.max_plus.homedooropenplate.Activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +15,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.max_plus.homedooropenplate.R;
 import com.max_plus.homedooropenplate.Tools.CountDownButton;
 import com.max_plus.homedooropenplate.Tools.NetworkUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 public class RegisterActivity extends Activity implements View.OnClickListener {
     private ImageButton btn_back;
@@ -74,10 +85,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                 //这里判断是否倒计时结束，避免在倒计时时多次点击导致重复请求接口
                 if (getcode.isFinish()) {
                     doGetCode(userName);
-                    //发送成功弹出自定义Toast
-                    ToastMessage("发送成功");
-                    //发送验证码请求成功后调用
-                    getcode.start();
                 }
 
                 break;
@@ -100,10 +107,109 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
     //注册
     private void doRegister(String userName, String code, String password) {
+        String url = R.string.local_url + "/register";
+        RequestParams params = new RequestParams();
+        params.put("mobile", Integer.parseInt(userName));
+        params.put("password", password);
+        params.put("code", code);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post(url, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                Log.d("response==>>>", response.toString());
+                try {
+                    int code = response.getInt("code");
+                    String message = response.getString("message");
+                    if (code == 1 && message.equals("success")) {
+                        //发送成功弹出自定义Toast跳转至填写个人信息页面
+                        ToastMessage("注册成功");
+                        Intent intent = new Intent(RegisterActivity.this, FillInfoActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, R.string.no_network, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(RegisterActivity.this, R.string.no_network, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Toast.makeText(RegisterActivity.this, R.string.no_network, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(RegisterActivity.this, R.string.no_network, Toast.LENGTH_LONG).show();
+                return;
+            }
+        });
     }
 
     //获取验证码
     private void doGetCode(String userName) {
+        String url = getResources().getString(R.string.local_url) + "/send/" + userName + "/1";
+        Log.d("URL==>", url);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(url, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    Log.d("response==>>", response.toString());
+                    int code = response.getInt("code");
+                    String message = response.getString("message");
+
+                    if (code == 0) {
+//                        int data = response.getInt("data");
+//                        Log.d("code==>>>", "" + data);
+                        //发送成功弹出自定义Toast
+                        ToastMessage("发送成功");
+                        //发送验证码请求成功后调用
+                        getcode.start();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(RegisterActivity.this, R.string.no_network, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Toast.makeText(RegisterActivity.this, R.string.no_network, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+                Toast.makeText(RegisterActivity.this, R.string.no_network, Toast.LENGTH_LONG).show();
+                return;
+            }
+        });
 
     }
 

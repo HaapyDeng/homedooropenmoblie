@@ -192,6 +192,21 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.FillInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ChooseXiaoQuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ChooseLouYuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ChooseHouseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.UploadInfoImgActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 
