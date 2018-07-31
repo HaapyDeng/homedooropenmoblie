@@ -10,8 +10,6 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
- * @author yangshuai
- * @version 创建时间：2015-8-25 下午5:58:48
  * 类说明 :有文字的imageView
  */
 @SuppressLint("AppCompatCustomView")
@@ -37,7 +35,7 @@ public class DrawTextImageView extends ImageView {
     /**
      * 文字大小
      */
-    private float textSize = 30;
+    private float textSize = 100;
 
     /**
      * 文字位置x
@@ -110,8 +108,11 @@ public class DrawTextImageView extends ImageView {
             paint.setColor(getResources().getColor(textColor));
             paint.setStrokeWidth(textDrawStrokeWidth);
             paint.setStyle(Paint.Style.FILL);
-            paint.setTextSize(textSize);
-            canvas.drawText(textString, x == -1000 ? (canvas.getWidth() - (textSize * textString.length())) : x, y == -1000 ? (canvas.getHeight() - 50) : y, paint);
+            paint.setTextSize(50);
+            paint.setTextAlign(Paint.Align.CENTER);
+            canvas.translate(getWidth() / 2, getHeight() / 2);
+            // x轴
+            canvas.drawText(textString, 0, 0, paint);
         }
 
 

@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
 import java.io.File;
@@ -42,8 +44,17 @@ public class TakePhotoUtils {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); //添加这一句表示对目标应用临时授权该Uri所代表的文件
+            }
+
             if (outputImage != null) {
-                imageUri = Uri.fromFile(outputImage);
+                //如果android7.0以上的系统，需要做个判断
+                if (Build.VERSION.SDK_INT >= 24) {
+                    imageUri = FileProvider.getUriForFile(mActivity, "com.max_plus.homedooropenplate.fileprovider", outputImage);//7.0
+                } else {
+                    imageUri = Uri.fromFile(outputImage); //7.0以下
+                }
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 mActivity.startActivityForResult(takePictureIntent, flag);
             }

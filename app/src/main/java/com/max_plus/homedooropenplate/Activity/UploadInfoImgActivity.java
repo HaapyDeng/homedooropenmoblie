@@ -23,6 +23,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.ResponseHandlerInterface;
 import com.max_plus.homedooropenplate.R;
 import com.max_plus.homedooropenplate.Tools.TakePhotoUtils;
 import com.max_plus.homedooropenplate.View.DrawTextImageView;
@@ -32,6 +33,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpResponse;
 
 public class UploadInfoImgActivity extends Activity implements View.OnClickListener {
 
@@ -117,6 +119,12 @@ public class UploadInfoImgActivity extends Activity implements View.OnClickListe
                 // 上传成功后要做的工作
                 Toast.makeText(UploadInfoImgActivity.this, "上传成功", Toast.LENGTH_LONG).show();
 
+            }
+
+            @Override
+            public void onPostProcessResponse(ResponseHandlerInterface instance, HttpResponse response) {
+                super.onPostProcessResponse(instance, response);
+                Log.d("response==>>>", response.toString());
             }
 
             @Override
